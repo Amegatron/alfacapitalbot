@@ -47,11 +47,12 @@ class SetTelegramWebhook extends Command
             case 'set':
                 $url = route('telegram_webhook');
                 $certificate = public_path('YOURPUBLIC.pem');
-                $this->telegram->setWebhook([
+                $response = $this->telegram->setWebhook([
                     'url' => $url,
                     'max_connections' => 20,
                     'certificate' => $certificate,
                 ]);
+                print_r($response);
                 $this->info('WebHook was successfully set.');
                 break;
             case 'unset':
