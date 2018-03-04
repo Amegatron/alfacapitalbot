@@ -14,7 +14,8 @@ class OpifController extends Controller
      */
     public function index()
     {
-        $opifs = Opif::where('my_amount',  '>', 0)->get();
+        // $opifs = Opif::where('my_amount',  '>', 0)->get();
+        $opifs = Opif::all();
 
         return view('opifs.index', ['opifs' => $opifs]);
     }
