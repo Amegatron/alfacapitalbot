@@ -41,7 +41,8 @@ class ParseCourses extends Command
      */
     public function handle()
     {
-        $opifs = Opif::where('my_amount', '>', 0)->get();
+        // $opifs = Opif::where('my_amount', '>', 0)->get();
+        $opifs = Opif::all();
         $parser = new HtmlCourseParser();
 
         foreach ($opifs as $opif) {
