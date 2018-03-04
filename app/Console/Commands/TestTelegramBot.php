@@ -43,7 +43,7 @@ class TestTelegramBot extends Command
      */
     public function handle()
     {
-        $userId = 120482670;
+        $userId = 123456;
 
         $logic = new OpifLogic();
         $message = $logic->setUserAmount($userId, 9, 25.35818);
