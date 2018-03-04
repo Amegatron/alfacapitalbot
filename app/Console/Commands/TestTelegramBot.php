@@ -12,7 +12,7 @@ class TestTelegramBot extends Command
      *
      * @var string
      */
-    protected $signature = 'telegram:test';
+    protected $signature = 'telegram:test {--messages=}';
 
     /**
      * The console command description.
@@ -42,13 +42,23 @@ class TestTelegramBot extends Command
      */
     public function handle()
     {
-        while (true) {
+        $limit = $this->input->getOption('messages');
+        if (!is_numeric($limit)) {
+            throw new \Exception("--messages option must be an integer");
+        }
+        $limit = (int)$limit;
+
+        $counter = 0;
+        while ($counter < $limit) {
             try {
                 $updates = $this->telegram->commandsHandler();
+                if (!empty($updates)) {
+                    $counter++;
+                }
             } catch (\Throwable $e) {
                 $this->error($e->getMessage());
             }
-            sleep(1);
+            sleep(2);
         }
     }
 }
