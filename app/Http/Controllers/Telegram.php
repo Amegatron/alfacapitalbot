@@ -10,5 +10,6 @@ class Telegram extends Controller
     public function onUpdate(Api $telegram)
     {
         $telegram->commandsHandler(true);
+        return 'test';
     }
 }
