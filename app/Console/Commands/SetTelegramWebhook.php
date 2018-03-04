@@ -48,9 +48,11 @@ class SetTelegramWebhook extends Command
                 $host = env('APP_URL');
                 $token = env('TELEGRAM_WEBHOOK_TOKEN');
                 $url = route('telegram_webhook');
+                $certificateUrl = env('APP_URL') . '/YOURPUBLIC.pem';
                 $this->telegram->setWebhook([
                     'url' => $url,
                     'max_connections' => 20,
+                    'certificate' => $certificateUrl,
                 ]);
                 $this->info('WebHook was successfully set.');
                 break;
