@@ -4,8 +4,7 @@
                 {{ $opif->fullName }}<br/>
                 <table cellpadding="10px">
                         <tr>
-                                <td>{{ $opif->latestCourse()->course }}</td>
-                                <td>{{ $opif->latestCourse()->course * $opif->my_amount }} руб.</td>
+                                <td>{{ $opif->latestCourse()->course }} руб. ({{ $opif->latestCourse()->date }})</td>
                         </tr>
                 </table>
         </li>
