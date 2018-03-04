@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\UserPifAmount;
 use Illuminate\Console\Command;
 use Telegram\Bot\Api;
 
@@ -12,7 +13,7 @@ class TestTelegramBot extends Command
      *
      * @var string
      */
-    protected $signature = 'telegram:test {--messages=}';
+    protected $signature = 'telegram:test';
 
     /**
      * The console command description.
@@ -42,23 +43,12 @@ class TestTelegramBot extends Command
      */
     public function handle()
     {
-        $limit = $this->input->getOption('messages');
-        if (!is_numeric($limit)) {
-            throw new \Exception("--messages option must be an integer");
-        }
-        $limit = (int)$limit;
+        /** @var UserPifAmount[] $amounts */
+        $amounts = UserPifAmount::with('opif')->where('user_id', '=', 120482670)->get();
 
-        $counter = 0;
-        while ($counter < $limit) {
-            try {
-                $updates = $this->telegram->commandsHandler();
-                if (!empty($updates)) {
-                    $counter++;
-                }
-            } catch (\Throwable $e) {
-                $this->error($e->getMessage());
-            }
-            sleep(2);
+        foreach ($amounts as $amount) {
+            $this->info($amount->opif->name);
+            $this->info($amount->amount);
         }
     }
 }
