@@ -7,6 +7,54 @@ use App\UserPifAmount;
 
 class OpifLogic
 {
+    public function setUserAmount($userId, $opif, $amount)
+    {
+        if (is_numeric($opif)) {
+            $opif = Opif::find($opif);
+        }
+
+        $existing = UserPifAmount::where('user_id', '=', $userId)
+            ->where('opif_id', '=', $opif->id)
+            ->first();
+
+        $action = null;
+        if ($existing) {
+            if ($amount > 0) {
+                $existing->amount = $amount;
+                $existing->save();
+                $action = 'update';
+            } else {
+                $existing->delete();
+                $action = 'remove';
+            }
+        } else {
+            if ($amount > 0) {
+                $existing = UserPifAmount::create([
+                    'user_id' => $userId,
+                    'opif_id' => $opif->id,
+                    'amount' => $amount,
+                ]);
+                $action = 'insert';
+            } else {
+                $action = 'remove';
+            }
+        }
+
+        $message = "Кол-во паев для ПИФа \"{$opif->fullName}\" ";
+        if ($action == 'update') {
+            $message .= "обновлено до значения ";
+        } else if ($action == 'insert') {
+            $message .= "установлено в ";
+        }
+        $message .= $amount;
+
+        if ($action == 'remove') {
+            $message = 'Данные о кол-ве паев были удалены';
+        }
+
+        return $message;
+    }
+
     public function getUserOpifSummary($userId)
     {
         /** @var UserPifAmount[] $amounts */

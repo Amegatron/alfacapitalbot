@@ -1,6 +1,7 @@
 <?php
 namespace App\Telegram\Commands;
 
+use App\Core\Logic\OpifLogic;
 use App\Opif;
 use App\UserPifAmount;
 use Telegram\Bot\Commands\Command;
@@ -22,57 +23,16 @@ class SetMyCommand extends Command
         }
 
         $pifId = (int)$matches[1];
-        $opif = Opif::find($pifId);
-        if (!$opif) {
-            $this->replyWithMessage(['text' => 'ПИФ с таким номером не найден']);
-            return;
-        }
-
         $amount = (double)$matches[2];
-
         $userId = $this->update->getMessage()->getFrom()->getId();
 
-        $existing = UserPifAmount::where('user_id', '=', $userId)
-            ->where('opif_id', '=', $pifId)
-            ->first();
-
-        $action = null;
-        if ($existing) {
-            if ($amount > 0) {
-                $existing->amount = $amount;
-                $existing->save();
-                $action = 'update';
-            } else {
-                $existing->delete();
-                $action = 'remove';
-            }
-        } else {
-            if ($amount > 0) {
-                $existing = UserPifAmount::create([
-                    'user_id' => $userId,
-                    'opif_id' => $pifId,
-                    'amount' => $amount,
-                ]);
-                $action = 'insert';
-            } else {
-                $action = 'none';
-            }
-        }
-
-        $message = "Кол-во паев для ПИФа \"{$opif->fullName}\" ";
-        if ($action == 'update') {
-            $message .= "обновлено до значения ";
-        } else if ($action == 'insert') {
-            $message .= "установлено в ";
-        }
-        $message .= $amount;
-
-        if ($action == 'remove') {
-            $message = 'Данные о кол-ве паев были удалены';
-        }
-
-        if ($action != 'none') {
+        try {
+            $message = (new OpifLogic)->setUserAmount($userId, $pifId, $amount);
             $this->replyWithMessage(['text' => $message]);
+        } catch (\Throwable $e) {
+            $this->replyWithMessage(['text' => 'Ошибка']);
         }
+
+
     }
 }

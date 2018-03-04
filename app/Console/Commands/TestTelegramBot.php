@@ -46,7 +46,7 @@ class TestTelegramBot extends Command
         $userId = 120482670;
 
         $logic = new OpifLogic();
-        $message = $logic->getUserOpifSummary($userId);
+        $message = $logic->setUserAmount($userId, 9, 25.35818);
 
         $this->info($message);
     }
