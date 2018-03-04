@@ -32,7 +32,7 @@ class MyCommand extends Command
                 $opif = $amount->opif;
 
                 /** @var OpifCourse $latestCourse */
-                $latestCourse = $opif->latestCourse;
+                $latestCourse = $opif->latestCourse();
 
                 $currentAmount = $amount->amount * $latestCourse->course;
                 $total += $currentAmount;

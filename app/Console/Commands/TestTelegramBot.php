@@ -43,12 +43,31 @@ class TestTelegramBot extends Command
      */
     public function handle()
     {
-        /** @var UserPifAmount[] $amounts */
-        $amounts = UserPifAmount::with('opif')->where('user_id', '=', 120482670)->get();
+        // $userId = $this->getUpdate()->getMessage()->getFrom()->getId();
+        $userId = 120482670;
 
-        foreach ($amounts as $amount) {
-            $this->info($amount->opif->name);
-            $this->info($amount->amount);
+        /** @var UserPifAmount[] $amounts */
+        $amounts = UserPifAmount::with('opif')->where('user_id', '=', $userId)->get();
+
+        $message = '';
+        if (count($amounts) == 0) {
+            $message = 'У Вас не задан не один ПИФ. Используйте команду /setmy для установки значений';
+        } else {
+            $total = 0;
+            foreach ($amounts as $amount) {
+                /** @var Opif $opif */
+                $opif = $amount->opif;
+
+                /** @var OpifCourse $latestCourse */
+                $latestCourse = $opif->latestCourse();
+
+                $currentAmount = $amount->amount * $latestCourse->course;
+                $total += $currentAmount;
+                $message .= $opif->name . ": " . round($currentAmount, 2) . " руб." . PHP_EOL;
+            }
+            $message .= PHP_EOL . "Итого: " . round($total, 2) . " руб.";
         }
+
+        $this->info($message);
     }
 }
