@@ -47,6 +47,11 @@ class ParseCourses extends Command
      */
     public function handle()
     {
+        $hour = (int)date('H');
+        if ($hour >= 0 && $hour <= 10) {
+            return;
+        }
+
         $opifs = Opif::all();
         $parser = new HtmlCourseParser();
 
