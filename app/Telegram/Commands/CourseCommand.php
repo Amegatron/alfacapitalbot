@@ -48,7 +48,7 @@ class CourseCommand extends Command
 
         if ($userPifAmount) {
             $text .= PHP_EOL;
-            $text .= "Объем ваших средств в этом ПИФ составляет: " . round($userPifAmount->amount * $course->course, 2);
+            $text .= "Объем ваших средств в этом ПИФ составляет: " . round($userPifAmount->amount * $course->course, 2) . " руб.";
         }
 
         $this->replyWithMessage(['text' => $text]);
