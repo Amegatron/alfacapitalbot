@@ -12,6 +12,6 @@ class StartCommand extends Command
      */
     public function handle($arguments)
     {
-        $this->replyWithMessage(['text' => 'Hello!']);
+        $this->triggerCommand('help');
     }
 }
