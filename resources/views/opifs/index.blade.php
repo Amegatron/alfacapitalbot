@@ -1,3 +1,4 @@
+Последнее обновление: {{ $last_parse }}
 <ul>
     @foreach($opifs as $opif)
         <li>

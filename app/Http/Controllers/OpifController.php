@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Console\Commands\ParseCourses;
 use App\Opif;
+use Illuminate\Cache\Repository;
 use Illuminate\Http\Request;
 
 class OpifController extends Controller
@@ -12,11 +14,17 @@ class OpifController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Repository $cache)
     {
         $opifs = Opif::all();
 
-        return view('opifs.index', ['opifs' => $opifs]);
+        return view(
+            'opifs.index',
+            [
+                'opifs' => $opifs,
+                'last_parse' => $cache->has(ParseCourses::LAST_PARSE_TIME) ? date("Y-m-d H:i:s", $cache->get(ParseCourses::LAST_PARSE_TIME)) : 'неизвестно',
+            ]
+        );
     }
 
     /**

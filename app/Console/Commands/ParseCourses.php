@@ -5,10 +5,13 @@ namespace App\Console\Commands;
 use App\Core\Parsers\HtmlCourseParser;
 use App\Opif;
 use App\OpifCourse;
+use Illuminate\Cache\Repository;
 use Illuminate\Console\Command;
 
 class ParseCourses extends Command
 {
+    const LAST_PARSE_TIME = 'last_parse_time';
+
     /**
      * The name and signature of the console command.
      *
@@ -23,14 +26,17 @@ class ParseCourses extends Command
      */
     protected $description = 'Parses OPIFs courses';
 
+    protected $cache;
+
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Repository $cache)
     {
         parent::__construct();
+        $this->cache = $cache;
     }
 
     /**
@@ -81,6 +87,8 @@ class ParseCourses extends Command
                 ]);
             }
         }
+
+        $this->cache->forever(self::LAST_PARSE_TIME, time());
     }
 
     protected function prepareCourse($course) {
