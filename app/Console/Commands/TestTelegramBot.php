@@ -43,7 +43,6 @@ class TestTelegramBot extends Command
      */
     public function handle()
     {
-        // $userId = $this->getUpdate()->getMessage()->getFrom()->getId();
         $userId = 120482670;
 
         /** @var UserPifAmount[] $amounts */
