@@ -2,8 +2,6 @@
 namespace App\Telegram\Commands;
 
 use App\Core\Logic\OpifLogic;
-use App\Opif;
-use App\UserPifAmount;
 use Telegram\Bot\Commands\Command;
 
 class SetMyCommand extends Command
