@@ -12,7 +12,6 @@ class StartCommand extends Command
      */
     public function handle($arguments)
     {
-        $this->replyWithMessage(['text' => session()->getId()]);
-        // $this->triggerCommand('help');
+        $this->triggerCommand('help');
     }
 }
