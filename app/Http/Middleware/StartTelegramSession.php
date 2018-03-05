@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Session\Middleware\StartSession;
 use Telegram\Bot\Api;
-use Telegram\Bot\Objects\Update;
 
 class StartTelegramSession extends StartSession
 {
@@ -22,10 +21,9 @@ class StartTelegramSession extends StartSession
         $sessionName = null;
         if ($update) {
             $sessionName = $update->getMessage()->getFrom()->getId();
+            return tap($this->manager->driver(), function ($session) use ($sessionName) {
+                $session->setId(str_pad($sessionName, 40, "0", STR_PAD_LEFT));
+            });
         }
-
-        return tap($this->manager->driver(), function ($session) use ($sessionName) {
-            $session->setId(str_pad($sessionName, 40, "0", STR_PAD_LEFT));
-        });
     }
 }

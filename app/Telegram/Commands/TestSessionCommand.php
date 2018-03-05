@@ -7,6 +7,8 @@ class TestSessionCommand extends Command
 {
     protected $name = 'session';
 
+    protected $description = 'Command for testing and debugging';
+
     /**
      * {@inheritdoc}
      */
@@ -19,7 +21,7 @@ class TestSessionCommand extends Command
         $lastCommands[] = $arguments;
         session()->put('last', $lastCommands);
 
-        $message = session()->getId() . " :: " . implode("\n", $lastCommands);
+        $message = implode("\n", $lastCommands);
         $this->replyWithMessage(['text' => $message]);
         session()->save();
     }
