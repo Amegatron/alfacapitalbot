@@ -19,7 +19,7 @@ class TestSessionCommand extends Command
         $lastCommands[] = $arguments;
         session('last', $lastCommands);
 
-        $message = implode("\n", $lastCommands);
+        $message = session()->getId() . " :: " . implode("\n", $lastCommands);
         $this->replyWithMessage(['text' => $message]);
         session()->flush();
     }
