@@ -21,6 +21,6 @@ class TestSessionCommand extends Command
 
         $message = session()->getId() . " :: " . implode("\n", $lastCommands);
         $this->replyWithMessage(['text' => $message]);
-        session()->flush();
+        session()->save();
     }
 }
