@@ -62,7 +62,7 @@ class OpifLogic
 
         $message = '';
         if (count($amounts) == 0) {
-            $message = 'У Вас не задан не один ПИФ. Используйте команду /setmy для установки значений';
+            $message = 'У Вас не задан ни один ПИФ. Используйте команду /setmy для установки значений';
         } else {
             $total = 0;
             foreach ($amounts as $amount) {
