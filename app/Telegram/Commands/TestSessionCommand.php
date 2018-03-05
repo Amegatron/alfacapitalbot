@@ -17,7 +17,7 @@ class TestSessionCommand extends Command
             array_shift($lastCommands);
         }
         $lastCommands[] = $arguments;
-        session('last', $lastCommands);
+        session()->put('last', $lastCommands);
 
         $message = session()->getId() . " :: " . implode("\n", $lastCommands);
         $this->replyWithMessage(['text' => $message]);
