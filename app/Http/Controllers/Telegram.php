@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 
 class Telegram extends Controller
@@ -19,6 +20,7 @@ class Telegram extends Controller
             $telegram->answerCallbackQuery([
                 'callback_query_id' => $callbackQuery->getId(),
             ]);
+            Log::info($callbackQuery->getInlineMessageId());
             // $telegram->editMessageText([
             //     'text' => $data,
             //     'inline_message_id' => $callbackQuery->getInlineMessageId(),
