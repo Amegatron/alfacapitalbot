@@ -19,10 +19,14 @@ class Telegram extends Controller
             $telegram->answerCallbackQuery([
                 'callback_query_id' => $callbackQuery->getId(),
             ]);
-            $telegram->editMessageText([
+            // $telegram->editMessageText([
+            //     'text' => $data,
+            //     'inline_message_id' => $callbackQuery->getInlineMessageId(),
+            //     // 'message_id' => $callbackQuery->getMessage()->getMessageId(),
+            // ]);
+            $telegram->sendMessage([
                 'text' => $data,
-                'inline_message_id' => $callbackQuery->getInlineMessageId(),
-                // 'message_id' => $callbackQuery->getMessage()->getMessageId(),
+                'chat_id' => $callbackQuery->getMessage()->getChat()->getId(),
             ]);
         }
     }
