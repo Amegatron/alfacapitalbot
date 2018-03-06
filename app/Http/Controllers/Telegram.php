@@ -21,7 +21,8 @@ class Telegram extends Controller
             ]);
             $telegram->editMessageText([
                 'text' => $data,
-                'inline_message_id' => $callbackQuery->getInlineMessageId(),
+                // 'inline_message_id' => $callbackQuery->getInlineMessageId(),
+                'message_id' => $callbackQuery->getMessage()->getMessageId(),
             ]);
         }
     }
