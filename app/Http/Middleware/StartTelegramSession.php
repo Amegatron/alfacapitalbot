@@ -20,8 +20,15 @@ class StartTelegramSession extends StartSession
         $telegram = app('telegram');
         $update = $telegram->getWebhookUpdate();
         $sessionName = null;
-        if ($update instanceof Update && $update->getMessage()) {
-            $sessionName = $update->getMessage()->getFrom()->getId();
+        if ($update instanceof Update) {
+            if ($update->getMessage()) {
+                $sessionName = $update->getMessage()->getFrom()->getId();
+            } else if ($update->getCallbackQuery()) {
+                $sessionName = $update->getCallbackQuery()->getMessage()->getFrom()->getId();
+            }
+        }
+
+        if ($sessionName) {
             return tap($this->manager->driver(), function ($session) use ($sessionName) {
                 $session->setId(str_pad($sessionName, 40, "0", STR_PAD_LEFT));
             });
