@@ -12,9 +12,13 @@ class Telegram extends Controller
         $callbackQuery = $update->getCallbackQuery();
         if ($callbackQuery) {
             $data = $callbackQuery->getData();
-            $telegram->answerCallbackQuery([
-                'callback_query_id' => $callbackQuery->getId(),
+            // $telegram->answerCallbackQuery([
+            //     'callback_query_id' => $callbackQuery->getId(),
+            //     'text' => $data,
+            // ]);
+            $telegram->editMessageText([
                 'text' => $data,
+                'inline_message_id' => $callbackQuery->getInlineMessageId(),
             ]);
         }
     }
