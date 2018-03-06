@@ -25,12 +25,11 @@ class ListInlineCommand extends Command
             ]);
             $buttons[] = [$button];
         }
+        $keyboard = Keyboard::make($buttons)->inline();
 
         $this->replyWithMessage([
             'text' => '',
-            'reply_markup' => [
-                'inline_keyboard' => $buttons,
-            ],
+            'reply_markup' => $keyboard,
         ]);
     }
 }
