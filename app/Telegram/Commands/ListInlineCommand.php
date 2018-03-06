@@ -28,7 +28,7 @@ class ListInlineCommand extends Command
         $keyboard = Keyboard::make($buttons)->inline();
 
         $this->replyWithMessage([
-            'text' => '',
+            'text' => 'Выберите ПИФ:',
             'reply_markup' => $keyboard,
         ]);
     }
