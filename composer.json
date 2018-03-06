@@ -10,7 +10,7 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "doctrine/dbal": "*",
-        "irazasyed/telegram-bot-sdk": "^2.0"
+        "irazasyed/telegram-bot-sdk": "dev-master"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
