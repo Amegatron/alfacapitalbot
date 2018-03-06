@@ -20,6 +20,7 @@ class Telegram extends Controller
             $telegram->answerCallbackQuery([
                 'callback_query_id' => $callbackQuery->getId(),
             ]);
+            Log::info($update->getRawResponse());
             Log::info($callbackQuery->getInlineMessageId());
             // $telegram->editMessageText([
             //     'text' => $data,
