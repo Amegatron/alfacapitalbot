@@ -17,15 +17,15 @@ class ListInlineCommand extends Command
         /** @var Opif $pifs */
         $pifs = Opif::orderBy('id', 'asc')->get();
 
-        $buttons = [];
+        $keyboard = Keyboard::make()->inline();
         foreach ($pifs as $pif) {
             $button = Keyboard::inlineButton([
                 'text' => $pif->fullName,
                 'callback_data' => 'pif_' . $pif->id,
             ]);
-            $buttons[] = [$button];
+            $keyboard->row($button);
         }
-        $keyboard = Keyboard::make($buttons)->inline();
+
 
         $this->replyWithMessage([
             'text' => 'Выберите ПИФ:',
