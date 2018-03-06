@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Session\Middleware\StartSession;
 use Telegram\Bot\Api;
+use Telegram\Bot\Objects\Update;
 
 class StartTelegramSession extends StartSession
 {
@@ -17,13 +18,15 @@ class StartTelegramSession extends StartSession
     {
         /** @var Api $telegram */
         $telegram = app('telegram');
-        $update = $telegram->getWebhookUpdates();
+        $update = $telegram->getWebhookUpdate();
         $sessionName = null;
-        if ($update) {
+        if ($update instanceof Update && $update->getMessage()) {
             $sessionName = $update->getMessage()->getFrom()->getId();
             return tap($this->manager->driver(), function ($session) use ($sessionName) {
                 $session->setId(str_pad($sessionName, 40, "0", STR_PAD_LEFT));
             });
+        } else {
+            return $this->manager->driver();
         }
     }
 }
