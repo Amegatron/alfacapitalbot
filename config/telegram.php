@@ -63,6 +63,5 @@ return [
         \App\Telegram\Commands\CourseCommand::class,
         \App\Telegram\Commands\SetMyCommand::class,
         \App\Telegram\Commands\MyCommand::class,
-        \App\Telegram\Commands\TestSessionCommand::class,
     ],
 ];
