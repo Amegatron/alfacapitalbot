@@ -8,6 +8,12 @@ class Telegram extends Controller
 {
     public function onUpdate(Api $telegram)
     {
-        $telegram->commandsHandler(true);
+        $update = $telegram->commandsHandler(true);
+        $callbackQuery = $update->getCallbackQuery();
+        $data = $callbackQuery->getData();
+        $telegram->answerCallbackQuery([
+            'callback_query_id' => $callbackQuery->getId(),
+            'text' => $data,
+        ]);
     }
 }
