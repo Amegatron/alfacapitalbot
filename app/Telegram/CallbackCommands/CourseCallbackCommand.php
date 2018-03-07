@@ -4,6 +4,7 @@ namespace App\Telegram\CallbackCommands;
 use App\Opif;
 use App\OpifCourse;
 use App\UserPifAmount;
+use Illuminate\Support\Facades\Log;
 
 class CourseCallbackCommand extends CallbackCommand
 {
@@ -42,6 +43,7 @@ class CourseCallbackCommand extends CallbackCommand
     {
         $this->answerCallbackQuery();
 
+        Log::info("course callback for pif " . $this->pifId);
         /** @var Opif $pif */
         $pif = Opif::find($this->pifId);
 
