@@ -73,6 +73,6 @@ class CourseCallbackCommand extends CallbackCommand
             $text .= "Объем ваших средств в этом ПИФ составляет: " . round($userPifAmount->amount * $course->course, 2) . " руб.";
         }
 
-        $this->replyWithMessage(['text' => $text]);
+        $this->editMessageText(['text' => $text]);
     }
 }
