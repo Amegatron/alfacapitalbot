@@ -60,7 +60,7 @@ class CourseCallbackCommand extends CallbackCommand
             return;
         }
 
-        $userId = $this->update->getMessage()->getFrom()->getId();
+        $userId = $this->update->getCallbackQuery()->getFrom()->getId();
 
         $userPifAmount = UserPifAmount::where('user_id', '=', $userId)
             ->where('opif_id', '=', $pif->id)
