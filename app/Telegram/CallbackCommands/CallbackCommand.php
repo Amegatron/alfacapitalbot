@@ -134,7 +134,7 @@ abstract class CallbackCommand
 
     abstract public function getParameters();
 
-    abstract public function setParameters(...$params);
+    abstract public function setParameters($params);
 
     abstract public function handle();
 }
