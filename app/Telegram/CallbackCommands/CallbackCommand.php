@@ -56,12 +56,7 @@ abstract class CallbackCommand
 
     public function getCallbackData()
     {
-        $data = [
-            'command' => $this->name,
-            'parameters' => $this->getParameters(),
-        ];
-
-        return serialize($data);
+        return $this->name . '::' . implode(",", $this->getParameters());
     }
 
     public function __call($method, $arguments)
@@ -115,7 +110,7 @@ abstract class CallbackCommand
 
     abstract public function getParameters();
 
-    abstract public function setParameters($params);
+    abstract public function setParameters(...$params);
 
     abstract public function handle();
 }

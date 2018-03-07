@@ -31,9 +31,9 @@ class CourseCallbackCommand extends CallbackCommand
         ];
     }
 
-    public function setParameters($params)
+    public function setParameters(...$params)
     {
-        $this->pifId = $params['pif_id'];
+        $this->pifId = $params[0];
     }
 
     public function handle()
