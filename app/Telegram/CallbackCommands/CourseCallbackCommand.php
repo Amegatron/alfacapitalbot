@@ -34,10 +34,14 @@ class CourseCallbackCommand extends CallbackCommand
     public function setParameters(...$params)
     {
         $this->pifId = $params[0];
+
+        return $this;
     }
 
     public function handle()
     {
+        $this->answerCallbackQuery();
+
         /** @var Opif $pif */
         $pif = Opif::find($this->pifId);
 

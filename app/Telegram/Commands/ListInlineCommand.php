@@ -23,11 +23,9 @@ class ListInlineCommand extends Command
         foreach ($pifs as $pif) {
             $command = new CourseCallbackCommand($this->getTelegram());
             $command->setPifId($pif->id);
-            $callbackData = $command->getCallbackData();
-            Log::info($callbackData);
             $button = Keyboard::inlineButton([
                 'text' => $pif->fullName,
-                'callback_data' => $callbackData,
+                'callback_data' => $command->getCallbackData(),
             ]);
             $keyboard->row($button);
         }

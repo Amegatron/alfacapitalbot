@@ -47,6 +47,8 @@ abstract class CallbackCommand
     public function setUpdate(Update $update)
     {
         $this->update = $update;
+
+        return $this;
     }
 
     public function getUpdate()
@@ -56,7 +58,13 @@ abstract class CallbackCommand
 
     public function getCallbackData()
     {
-        return $this->name . '::' . implode(",", $this->getParameters());
+        $data = $this->name . ':' . implode(",", $this->getParameters());
+
+        if (strlen($data) > 64) {
+            throw new \InvalidArgumentException("Callback data is larger than 64 bytes");
+        }
+
+        return $data;
     }
 
     public function __call($method, $arguments)
@@ -106,6 +114,22 @@ abstract class CallbackCommand
         $params = array_merge($additionalParams, $params);
 
         $this->telegram->editMessageText($params);
+    }
+
+    public function answerCallbackQuery($params = [])
+    {
+        if (!$this->getUpdate()->getCallbackQuery()) {
+            throw new \BadMethodCallException("CallbackQuery is missing in request");
+        }
+
+        $params = array_merge(
+            [
+                'callback_query_id' => $this->getUpdate()->getCallbackQuery()->getId(),
+            ],
+            $params
+        );
+
+        $this->getTelegram()->answerCallbackQuery($params);
     }
 
     abstract public function getParameters();
