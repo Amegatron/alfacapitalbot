@@ -3,13 +3,14 @@ namespace App\Telegram\Commands;
 
 use App\Opif;
 use App\Telegram\CallbackCommands\CourseCallbackCommand;
-use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Keyboard\Keyboard;
 
 class ListInlineCommand extends Command
 {
-    protected $name = 'list2';
+    protected $name = 'list';
+
+    protected $description = "Список доступных ПИФов";
 
     /**
      * {@inheritdoc}

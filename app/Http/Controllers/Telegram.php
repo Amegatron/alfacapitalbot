@@ -18,6 +18,7 @@ class Telegram extends Controller
                 $callbackCommandName = $matches[1];
                 $paramsRaw = $matches[2];
                 $params = explode(",", $paramsRaw);
+                // TODO: Пока захардкодил, переделать на шину
                 if ($callbackCommandName == 'course') {
                     $command = new CourseCallbackCommand($telegram);
                     $command->setUpdate($update)
@@ -25,17 +26,6 @@ class Telegram extends Controller
                         ->handle();
                 }
             }
-
-
-            // $telegram->answerCallbackQuery([
-            //     'callback_query_id' => $callbackQuery->getId(),
-            // ]);
-
-            // $telegram->editMessageText([
-            //     'text' => session()->getId() . " :: " . $data,
-            //     'chat_id' => $callbackQuery->getMessage()->getChat()->getId(),
-            //     'message_id' => $callbackQuery->getMessage()->getMessageId(),
-            // ]);
         }
     }
 }

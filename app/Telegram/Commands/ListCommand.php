@@ -6,7 +6,7 @@ use Telegram\Bot\Commands\Command;
 
 class ListCommand extends Command
 {
-    protected $name = 'list';
+    protected $name = 'list_old';
 
     protected $description = "Список доступных ПИФов";
 

@@ -4,7 +4,6 @@ namespace App\Telegram\CallbackCommands;
 use App\Opif;
 use App\OpifCourse;
 use App\UserPifAmount;
-use Illuminate\Support\Facades\Log;
 
 class CourseCallbackCommand extends CallbackCommand
 {
@@ -43,12 +42,11 @@ class CourseCallbackCommand extends CallbackCommand
     {
         $this->answerCallbackQuery();
 
-        Log::info("course callback for pif " . $this->pifId);
         /** @var Opif $pif */
         $pif = Opif::find($this->pifId);
 
         if (!$pif) {
-            $this->replyWithMessage(['text' => "ПИФ с таким номером не найден"]);
+            $this->editMessageText(['text' => "ПИФ с таким номером не найден"]);
             return;
         }
 
@@ -56,7 +54,7 @@ class CourseCallbackCommand extends CallbackCommand
         $course = $pif->latestCourse();
 
         if (!$course) {
-            $this->replyWithMessage(['text' => 'Нет данных']);
+            $this->editMessageText(['text' => 'Нет данных']);
             return;
         }
 
