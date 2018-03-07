@@ -3,6 +3,7 @@ namespace App\Telegram\Commands;
 
 use App\Opif;
 use App\Telegram\CallbackCommands\CourseCallbackCommand;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Keyboard\Keyboard;
 
@@ -22,9 +23,11 @@ class ListInlineCommand extends Command
         foreach ($pifs as $pif) {
             $command = new CourseCallbackCommand($this->getTelegram());
             $command->setPifId($pif->id);
+            $callbackData = $command->getCallbackData();
+            Log::info($callbackData);
             $button = Keyboard::inlineButton([
                 'text' => $pif->fullName,
-                'callback_data' => $command->getCallbackData(),
+                'callback_data' => $callbackData,
             ]);
             $keyboard->row($button);
         }
