@@ -2,6 +2,7 @@
 namespace App\Telegram\Commands;
 
 use Telegram\Bot\Commands\Command;
+use Telegram\Bot\Keyboard\Keyboard;
 
 class StartCommand extends Command
 {
@@ -12,6 +13,21 @@ class StartCommand extends Command
      */
     public function handle($arguments)
     {
-        $this->triggerCommand('help');
+        //$this->triggerCommand('help');
+        $keyboard = Keyboard::make();
+
+        $buttonList = Keyboard::button([
+            ['text' => 'Список'],
+        ]);
+        $buttonMy = Keyboard::button([
+            ['text' => 'Мои ПИФы'],
+        ]);
+
+        $keyboard->row([$buttonList, $buttonMy]);
+
+        $this->replyWithMessage([
+            'text' => 'Приветствую!',
+            'reply_markup' => $keyboard,
+        ]);
     }
 }
