@@ -20,8 +20,6 @@ class Telegram extends Controller
             $bus->handle($data, $update);
         }
 
-        Log::debug("force_agent == " . session(ReplyAgentsSupervisor::FORCE_AGENT));
-
         if ($update->getMessage() && $text = $update->getMessage()->getText()) {
             if (strlen($text) > 0 && substr($text, 0, 1) != '/') {
                 /** @var ReplyAgentsSupervisor $supervisor */
@@ -29,5 +27,7 @@ class Telegram extends Controller
                 $supervisor->handle($update);
             }
         }
+
+        Log::debug("force_agent == " . session(ReplyAgentsSupervisor::FORCE_AGENT));
     }
 }
