@@ -28,6 +28,6 @@ class Telegram extends Controller
             }
         }
 
-        Log::debug("force_agent == " . session(ReplyAgentsSupervisor::FORCE_AGENT));
+        session()->save();
     }
 }
