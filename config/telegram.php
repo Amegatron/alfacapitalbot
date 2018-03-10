@@ -64,4 +64,8 @@ return [
         \App\Telegram\Commands\SetMyCommand::class,
         \App\Telegram\Commands\MyCommand::class,
     ],
+
+    'callbackCommands' => [
+        \App\Telegram\CallbackCommands\CourseCallbackCommand::class,
+    ],
 ];

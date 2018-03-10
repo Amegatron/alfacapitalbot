@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Telegram\CallbackCommands\CourseCallbackCommand;
-use Illuminate\Support\Facades\Log;
+use App\Core\Telegram\CallbackCommandBus;
 use Telegram\Bot\Api;
 
 class Telegram extends Controller
@@ -13,19 +12,10 @@ class Telegram extends Controller
         $update = $telegram->commandsHandler(true);
         $callbackQuery = $update->getCallbackQuery();
         if ($callbackQuery) {
+            /** @var CallbackCommandBus $bus */
+            $bus = app(CallbackCommandBus::class);
             $data = $callbackQuery->getData();
-            if (preg_match('~^([a-z]+):(.*)~is', $data, $matches)) {
-                $callbackCommandName = $matches[1];
-                $paramsRaw = $matches[2];
-                $params = explode(",", $paramsRaw);
-                // TODO: Пока захардкодил, переделать на шину
-                if ($callbackCommandName == 'course') {
-                    $command = new CourseCallbackCommand($telegram);
-                    $command->setUpdate($update)
-                        ->setParameters($params)
-                        ->handle();
-                }
-            }
+            $bus->handle($data, $update);
         }
     }
 }
