@@ -72,6 +72,7 @@ class CallbackCommandBus
 
     public function handle($data, Update $update)
     {
+        Log::debug('Handling data: ' . $data);
         if (preg_match('~^([a-z]+):(.*)~is', $data, $matches)) {
             $callbackCommandName = $matches[1];
             $paramsRaw = $matches[2];
