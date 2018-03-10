@@ -8,7 +8,7 @@ use Telegram\Bot\Objects\Update;
 class ReplyAgentsSupervisor
 {
     /** @var AbstractReplyAgent[] */
-    protected $agents;
+    protected $agents = [];
 
     protected $telegram;
 
