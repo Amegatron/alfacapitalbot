@@ -27,7 +27,5 @@ class Telegram extends Controller
                 $supervisor->handle($update);
             }
         }
-
-        //session()->save();
     }
 }
