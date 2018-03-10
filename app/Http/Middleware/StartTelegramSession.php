@@ -30,7 +30,6 @@ class StartTelegramSession extends StartSession
         }
 
         if ($sessionName) {
-            Log::debug("Session: " . $sessionName);
             return tap($this->manager->driver(), function ($session) use ($sessionName) {
                 $session->setId(str_pad($sessionName, 40, "0", STR_PAD_LEFT));
             });

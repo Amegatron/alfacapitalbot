@@ -66,7 +66,6 @@ class ReplyAgentsSupervisor
 
     public function handle(Update $update)
     {
-        Log::debug('Session :: ' . self::FORCE_AGENT . ' == ' . session(self::FORCE_AGENT));
         if (session()->has(self::FORCE_AGENT) && isset($this->agents[$agentName = session(self::FORCE_AGENT)])) {
             $agent = $this->agents[$agentName];
             $agent->setUpdate($update);
