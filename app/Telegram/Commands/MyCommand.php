@@ -2,7 +2,10 @@
 namespace App\Telegram\Commands;
 
 use App\Core\Logic\OpifLogic;
+use App\Telegram\CallbackCommands\MyInfoCallbackCommand;
+use App\Telegram\CallbackCommands\SetMyCallbackCommand;
 use Telegram\Bot\Commands\Command;
+use Telegram\Bot\Keyboard\Keyboard;
 
 class MyCommand extends Command
 {
@@ -15,12 +18,27 @@ class MyCommand extends Command
      */
     public function handle($arguments)
     {
-        $userId = $this->getUpdate()->getMessage()->getFrom()->getId();
+        $keyboard = Keyboard::make()->inline();
 
-        /** @var OpifLogic $logic */
-        $logic = app(OpifLogic::class);
-        $message = $logic->getUserOpifSummary($userId);
+        /** @var MyInfoCallbackCommand $command */
+        $command = app(MyInfoCallbackCommand::class);
+        $button = Keyboard::inlineButton([
+            'text' => 'Информация',
+            'callback_data' => $command->getCallbackData(),
+        ]);
+        $keyboard->row($button);
 
-        $this->replyWithMessage(['text' => $message]);
+        /** @var SetMyCallbackCommand $command */
+        $command = app(SetMyCallbackCommand::class);
+        $button = Keyboard::inlineButton([
+            'text' => 'Установить',
+            'callback_data' => $command->getCallbackData(),
+        ]);
+        $keyboard->row($button);
+
+        $this->replyWithMessage([
+            'text' => 'Ваши ПИФы:',
+            'reply_markup' => $keyboard,
+        ]);
     }
 }
