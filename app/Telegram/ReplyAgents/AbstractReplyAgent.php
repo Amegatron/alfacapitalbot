@@ -21,5 +21,10 @@ abstract class AbstractReplyAgent
         return $this->name;
     }
 
-    abstract public function handle(Update $update);
+    public function setUpdate(Update $update)
+    {
+        $this->update = $update;
+    }
+
+    abstract public function handle();
 }

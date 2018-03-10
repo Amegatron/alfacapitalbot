@@ -1,7 +1,9 @@
 <?php
 namespace App\Telegram\CallbackCommands;
 
+use App\Core\Telegram\ReplyAgentsSupervisor;
 use App\Opif;
+use App\Telegram\ReplyAgents\SetMyReplyAgent;
 use Telegram\Bot\Keyboard\Keyboard;
 
 class SetMyCallbackCommand extends CallbackCommand
@@ -54,6 +56,13 @@ class SetMyCallbackCommand extends CallbackCommand
             /** @var Opif $opif */
             $opif = Opif::find($this->inputPif);
 
+            if (!$opif) {
+                $this->editMessageText([
+                    "text" => "ПИФ не найден",
+                ]);
+                return;
+            }
+
             $keyboard = Keyboard::make()->inline();
             /** @var SetMyCallbackCommand $command */
             $command = app(SetMyCallbackCommand::class);
@@ -64,6 +73,8 @@ class SetMyCallbackCommand extends CallbackCommand
             ]);
             $keyboard->row($button);
 
+            session()->put(ReplyAgentsSupervisor::FORCE_AGENT, 'setmy');
+            session()->put(SetMyReplyAgent::SET_MY_PIF_ID, $this->inputPif);
             $this->replyWithMessage([
                 'text' => 'Пришлите мне сообщением Ваше кол-во паев в выбранном ПИФе ("' . $opif->name . '"):',
                 'reply_markup' => $keyboard,

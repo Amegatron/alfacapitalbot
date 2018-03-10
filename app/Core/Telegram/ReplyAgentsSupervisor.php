@@ -7,6 +7,8 @@ use Telegram\Bot\Objects\Update;
 
 class ReplyAgentsSupervisor
 {
+    const FORCE_AGENT = 'force_agent';
+
     /** @var AbstractReplyAgent[] */
     protected $agents = [];
 
@@ -63,12 +65,14 @@ class ReplyAgentsSupervisor
 
     public function handle(Update $update)
     {
-        if (session()->has('force_agent') && isset($this->agents[$agentName = session('force_agent')])) {
+        if (session()->has(self::FORCE_AGENT) && isset($this->agents[$agentName = session(self::FORCE_AGENT)])) {
             $agent = $this->agents[$agentName];
-            $agent->handle($update);
+            $agent->setUpdate($update);
+            $agent->handle();
         } else {
             foreach ($this->agents as $agent) {
-                if (false === $agent->handle($update)) {
+                $agent->setUpdate($update);
+                if (false === $agent->handle()) {
                     break;
                 }
             }

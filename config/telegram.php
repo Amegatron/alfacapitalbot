@@ -69,6 +69,7 @@ return [
     ],
 
     'replyAgents' => [
-
+        \App\Telegram\ReplyAgents\DumbReplyAgent::class,
+        \App\Telegram\ReplyAgents\SetMyReplyAgent::class,
     ],
 ];
