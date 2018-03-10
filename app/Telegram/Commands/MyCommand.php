@@ -30,6 +30,7 @@ class MyCommand extends Command
 
         /** @var SetMyCallbackCommand $command */
         $command = app(SetMyCallbackCommand::class);
+        $command->setInputPif(0);
         $button = Keyboard::inlineButton([
             'text' => 'Установить',
             'callback_data' => $command->getCallbackData(),
