@@ -13,13 +13,8 @@ class StartCommand extends Command
      */
     public function handle($arguments)
     {
-        //$this->triggerCommand('help');
-
-        $keyboard = Keyboard::make([['Список', 'Мои ПИФы']]);
-
         $this->replyWithMessage([
             'text' => 'Приветствую!',
-            'reply_markup' => $keyboard,
         ]);
     }
 }
