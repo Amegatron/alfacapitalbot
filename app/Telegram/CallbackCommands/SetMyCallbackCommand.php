@@ -80,6 +80,10 @@ class SetMyCallbackCommand extends CallbackCommand
                 'reply_markup' => $keyboard,
             ]);
         } else if ($this->inputPif == -1) {
+            session()->forget([
+                ReplyAgentsSupervisor::FORCE_AGENT,
+                SetMyReplyAgent::SET_MY_PIF_ID,
+            ]);
             $this->editMessageText([
                 'text' => 'Операция отменена',
             ]);
