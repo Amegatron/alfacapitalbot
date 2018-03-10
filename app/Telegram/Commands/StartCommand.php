@@ -13,7 +13,16 @@ class StartCommand extends Command
      */
     public function handle($arguments)
     {
-        $keyboard = Keyboard::make(['Text1', 'Text2']);
+        $keyboard = Keyboard::make();
+
+        $button1 = Keyboard::button([
+            'text' => 'Text1',
+        ]);
+        $button2 = Keyboard::button([
+            'text' => 'Text2',
+        ]);
+
+        $keyboard->row([$button1, $button2]);
 
         $this->replyWithMessage([
             'text' => 'Hello!',
