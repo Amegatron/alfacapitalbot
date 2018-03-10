@@ -17,6 +17,7 @@ class SetMyCallbackCommand extends CallbackCommand
 
     public function handle()
     {
+        $this->answerCallbackQuery();
         $this->editMessageText(['text' => 'not implemented yet']);
     }
 }
