@@ -29,7 +29,7 @@ class SetMyCallbackCommand extends CallbackCommand
     {
         $this->answerCallbackQuery();
 
-        if (!$this->inputPif) {
+        if (0 === $this->inputPif) {
             /** @var Opif $pifs */
             $pifs = Opif::orderBy('id', 'asc')->get();
 
@@ -50,11 +50,27 @@ class SetMyCallbackCommand extends CallbackCommand
                 'text' => 'Выберите ПИФ:',
                 'reply_markup' => $keyboard,
             ]);
-        } else {
+        } else if ($this->inputPif > 0) {
             /** @var Opif $opif */
             $opif = Opif::find($this->inputPif);
+
+            $keyboard = Keyboard::make()->inline();
+            /** @var SetMyCallbackCommand $command */
+            $command = app(SetMyCallbackCommand::class);
+            $command->setInputPif(-1);
+            $button = Keyboard::inlineButton([
+                'text' => "Отмена",
+                'callback_data' => $command->getCallbackData(),
+            ]);
+            $keyboard->row($button);
+
             $this->replyWithMessage([
-                'text' => 'Пришлите мне сообщением Ваше кол-во паев в выбранном ПИФе ("' . $opif->name . '""):',
+                'text' => 'Пришлите мне сообщением Ваше кол-во паев в выбранном ПИФе ("' . $opif->name . '"):',
+                'reply_markup' => $keyboard,
+            ]);
+        } else if ($this->inputPif == -1) {
+            $this->editMessageText([
+                'text' => 'Операция отменена',
             ]);
         }
     }
