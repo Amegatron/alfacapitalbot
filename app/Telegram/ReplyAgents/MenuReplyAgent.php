@@ -9,13 +9,12 @@ class MenuReplyAgent extends AbstractReplyAgent
     {
         $message = $this->getUpdate()->getMessage()->getText();
 
-        switch ($message) {
-            case 'Список':
-                $this->getTelegram()->triggerCommand('list', $this->getUpdate());
-                return false;
-            case 'Мои ПИФы':
-                $this->getTelegram()->triggerCommand('my', $this->getUpdate());
-                return false;
+        if (strpos($message, 'Список') === 0) {
+            $this->getTelegram()->triggerCommand('list', $this->getUpdate());
+            return false;
+        } else if (strpos($message, 'Мои ПИФы') === 0) {
+            $this->getTelegram()->triggerCommand('my', $this->getUpdate());
+            return false;
         }
 
         return true;

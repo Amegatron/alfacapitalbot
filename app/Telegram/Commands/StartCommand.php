@@ -15,10 +15,10 @@ class StartCommand extends Command
     {
         $keyboard = Keyboard::make();
         $button1 = Keyboard::button([
-            'text' => 'Список',
+            'text' => 'Список 📃',
         ]);
         $button2 = Keyboard::button([
-            'text' => 'Мои ПИФы',
+            'text' => 'Мои ПИФы ⚙️',
         ]);
         $keyboard->row($button1, $button2);
 
