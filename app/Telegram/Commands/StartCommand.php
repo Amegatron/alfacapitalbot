@@ -14,11 +14,10 @@ class StartCommand extends Command
     public function handle($arguments)
     {
         //$this->triggerCommand('help');
-        $keyboard = Keyboard::make();
 
-        $btn1 = Keyboard::button('Список');
-        $btn2 = Keyboard::button('Мои ПИФы');
-        $keyboard->row([$btn1, $btn2]);
+        $keyboard = [
+            ['Список', 'Мои ПИФы'],
+        ];
 
         $this->replyWithMessage([
             'text' => 'Приветствую!',
