@@ -67,4 +67,8 @@ return [
         \App\Telegram\CallbackCommands\MyInfoCallbackCommand::class,
         \App\Telegram\CallbackCommands\SetMyCallbackCommand::class,
     ],
+
+    'replyAgents' => [
+
+    ],
 ];

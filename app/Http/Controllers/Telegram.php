@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Core\Telegram\CallbackCommandBus;
+use App\Core\Telegram\ReplyAgentsSupervisor;
 use Telegram\Bot\Api;
 
 class Telegram extends Controller
@@ -16,6 +17,14 @@ class Telegram extends Controller
             $bus = app(CallbackCommandBus::class);
             $data = $callbackQuery->getData();
             $bus->handle($data, $update);
+        }
+
+        if ($update->getMessage() && $text = $update->getMessage()->getText()) {
+            if (strlen($text) > 0 && substr($text, 0, 1) != '/') {
+                /** @var ReplyAgentsSupervisor $supervisor */
+                $supervisor = app(ReplyAgentsSupervisor::class);
+                $supervisor->handle($update);
+            }
         }
     }
 }
