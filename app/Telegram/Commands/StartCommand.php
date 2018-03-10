@@ -15,9 +15,7 @@ class StartCommand extends Command
     {
         //$this->triggerCommand('help');
 
-        $keyboard = [
-            ['Список', 'Мои ПИФы'],
-        ];
+        $keyboard = Keyboard::make([['Список', 'Мои ПИФы']]);
 
         $this->replyWithMessage([
             'text' => 'Приветствую!',
