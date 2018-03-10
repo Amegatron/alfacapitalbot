@@ -90,7 +90,6 @@ class CallbackCommandBus
     protected function execute($commandClass, $update, $parameters)
     {
         /** @var CallbackCommand $command */
-        Log::debug("Calling callback command {$commandClass}");
         $command = new $commandClass($this->telegram);
         $command->setUpdate($update)
             ->setParameters($parameters);

@@ -17,7 +17,8 @@ class MyCommand extends Command
     {
         $userId = $this->getUpdate()->getMessage()->getFrom()->getId();
 
-        $logic = new OpifLogic();
+        /** @var OpifLogic $logic */
+        $logic = app(OpifLogic::class);
         $message = $logic->getUserOpifSummary($userId);
 
         $this->replyWithMessage(['text' => $message]);
