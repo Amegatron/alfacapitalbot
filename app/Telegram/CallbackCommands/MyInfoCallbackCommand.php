@@ -11,21 +11,24 @@ class MyInfoCallbackCommand extends CallbackCommand
 
     public function getParameters()
     {
-        return [$this->userId];
+        return [];
     }
 
     public function setParameters($params)
     {
-        $this->userId = $params[0];
+        return;
     }
 
     public function handle()
     {
+        $userId = $this->getUpdate()->getCallbackQuery()->getFrom()->getId();
+
         /** @var OpifLogic $logic */
         $logic = app(OpifLogic::class);
-        $message = $logic->getUserOpifSummary($this->userId);
+        $message = $logic->getUserOpifSummary($userId);
 
-        //$this->replyWithMessage(['text' => $message]);
+        $this->answerCallbackQuery();
+
         $this->editMessageText(['text' => $message]);
     }
 }
