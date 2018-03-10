@@ -3,7 +3,6 @@ namespace App\Telegram\ReplyAgents;
 
 use App\Core\Logic\OpifLogic;
 use App\Core\Telegram\ReplyAgentsSupervisor;
-use Telegram\Bot\Objects\Update;
 
 class SetMyReplyAgent extends AbstractReplyAgent
 {
