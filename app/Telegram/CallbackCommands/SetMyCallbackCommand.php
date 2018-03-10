@@ -29,7 +29,7 @@ class SetMyCallbackCommand extends CallbackCommand
     {
         $this->answerCallbackQuery();
 
-        if (0 === $this->inputPif) {
+        if (0 == $this->inputPif) {
             /** @var Opif $pifs */
             $pifs = Opif::orderBy('id', 'asc')->get();
 
