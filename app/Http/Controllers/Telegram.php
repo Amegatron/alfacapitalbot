@@ -28,6 +28,6 @@ class Telegram extends Controller
             }
         }
 
-        session()->save();
+        //session()->save();
     }
 }

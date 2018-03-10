@@ -1,14 +1,21 @@
 <?php
 namespace App\Http\Middleware;
 
+use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Update;
 
 class StartTelegramSession extends StartSession
 {
+    public function handle($request, Closure $next)
+    {
+        $result = parent::handle($request, $next);
+        session()->save();
+        return $result;
+    }
+
     /**
      * Get the session implementation from the manager.
      *
