@@ -16,7 +16,9 @@ class StartCommand extends Command
         //$this->triggerCommand('help');
         $keyboard = Keyboard::make();
 
-        $keyboard->row(['Список', 'Мои ПИФы']);
+        $btn1 = Keyboard::button('Список');
+        $btn2 = Keyboard::button('Мои ПИФы');
+        $keyboard->row([$btn1, $btn2]);
 
         $this->replyWithMessage([
             'text' => 'Приветствую!',
