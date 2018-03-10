@@ -13,8 +13,11 @@ class StartCommand extends Command
      */
     public function handle($arguments)
     {
+        $keyboard = Keyboard::make([['Text1', 'Text2']]);
+
         $this->replyWithMessage([
             'text' => 'Приветствую!',
+            'reply_markup' => $keyboard,
         ]);
         $this->triggerCommand('help');
     }
