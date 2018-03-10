@@ -15,17 +15,17 @@ class StartCommand extends Command
     {
         $keyboard = Keyboard::make();
         $button1 = Keyboard::button([
-            'text' => 'Text1',
+            'text' => 'Список',
         ]);
         $button2 = Keyboard::button([
-            'text' => 'Text2',
+            'text' => 'Мои ПИФы',
         ]);
         $keyboard->row($button1, $button2);
 
         $this->replyWithMessage([
-            'text' => 'Hello!',
+            'text' => 'Приветствую!',
             'reply_markup' => $keyboard,
         ]);
-        $this->triggerCommand('help');
+        //$this->triggerCommand('help');
     }
 }
