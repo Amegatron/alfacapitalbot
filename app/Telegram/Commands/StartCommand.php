@@ -16,5 +16,6 @@ class StartCommand extends Command
         $this->replyWithMessage([
             'text' => 'Приветствую!',
         ]);
+        $this->triggerCommand('help');
     }
 }
