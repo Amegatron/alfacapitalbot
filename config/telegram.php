@@ -60,6 +60,7 @@ return [
         \App\Telegram\Commands\StartCommand::class,
         \App\Telegram\Commands\ListInlineCommand::class,
         \App\Telegram\Commands\MyCommand::class,
+        \App\Telegram\Commands\AboutCommand::class,
     ],
 
     'callbackCommands' => [
