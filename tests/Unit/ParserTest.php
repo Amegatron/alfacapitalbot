@@ -22,18 +22,69 @@ class ParserTest extends TestCase
 
         /** @var HtmlCourseParser $parser */
         $parser = $this->app->make(HtmlCourseParser::class);
+
         $opif = Opif::find(1);
+        $result = $parser->parse($opif);
+        $this->assertCoursesResult($result);
+
+        $opif = Opif::find(2);
+        $result = $parser->parse($opif);
+        $this->assertCoursesResult($result);
+
+        VCR::eject();
+        VCR::turnOff();
+    }
+
+    /** @test */
+    function a_parser_should_throw_exception_for_invalid_url()
+    {
+        /** @var HtmlCourseParser $parser */
+        $parser = $this->app->make(HtmlCourseParser::class);
+        $opif = new Opif();
+        $opif->publicDataUrl = 'http://asdfasd34534fasdf.com/asdfasdf';
+
+        $this->expectException(\Exception::class);
+
+        $result = $parser->parse($opif);
+    }
+
+    /** @test */
+    function a_parser_should_return_null_for_wrong_url()
+    {
+        VCR::turnOn();
+        VCR::insertCassette('google.yml');
+
+        /** @var HtmlCourseParser $parser */
+        $parser = $this->app->make(HtmlCourseParser::class);
+        $opif = new Opif();
+        $opif->publicDataUrl = 'http://google.com';
 
         $result = $parser->parse($opif);
 
         VCR::eject();
         VCR::turnOff();
 
+        $this->assertNull($result);
+
+    }
+
+    /**
+     * @param $result
+     */
+    protected function assertCoursesResult($result)
+    {
         $this->assertArrayHasKey('prev', $result);
         $this->assertArrayHasKey('curr', $result);
+
         $this->assertArrayHasKey('date', $result['prev']);
         $this->assertArrayHasKey('course', $result['prev']);
         $this->assertArrayHasKey('date', $result['curr']);
         $this->assertArrayHasKey('course', $result['curr']);
+
+        $this->assertRegExp('~^\d{2}\.\d{2}\.\d{4}$~is', $result['prev']['date']);
+        $this->assertRegExp('~^\d{2}\.\d{2}\.\d{4}$~is', $result['curr']['date']);
+
+        $this->assertRegExp('~^\d+(?:\s\d+){0,}(?:\.\d+)$~is', $result['prev']['course']);
+        $this->assertRegExp('~^\d+(?:\s\d+){0,}(?:\.\d+)$~is', $result['curr']['course']);
     }
 }
