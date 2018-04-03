@@ -23,11 +23,13 @@ class ParserTest extends TestCase
         /** @var HtmlCourseParser $parser */
         $parser = $this->app->make(HtmlCourseParser::class);
 
-        $opif = Opif::find(1);
+        $opif = new Opif();
+        $opif->publicDataUrl = 'https://www.alfacapital.ru/disclosure/pifs/ipifa_akar/';
         $result = $parser->parse($opif);
         $this->assertCoursesResult($result);
 
-        $opif = Opif::find(2);
+        $opif = new Opif();
+        $opif->publicDataUrl = 'https://www.alfacapital.ru/disclosure/pifs/opif_aks/';
         $result = $parser->parse($opif);
         $this->assertCoursesResult($result);
 
