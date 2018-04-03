@@ -35,7 +35,7 @@ class SetMyTest extends TestCase
         $commandMock->shouldReceive("editMessageText");
 
         $commandMock->setUpdate($updateMock);
-        $commandMock->setInputPif(0);
+        $commandMock->setInputPif(-1);
         $commandMock->handle();
     }
 }
