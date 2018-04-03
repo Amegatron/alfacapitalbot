@@ -2,7 +2,6 @@
 namespace App\Core\Telegram;
 
 use App\Telegram\CallbackCommands\CallbackCommand;
-use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Update;
 
@@ -79,7 +78,7 @@ class CallbackCommandBus
 
             if (isset($this->commands[$callbackCommandName])) {
                 $this->execute(
-                    get_class($this->commands[$callbackCommandName]),
+                    $this->commands[$callbackCommandName],
                     $update,
                     $params
                 );
@@ -87,10 +86,10 @@ class CallbackCommandBus
         }
     }
 
-    protected function execute($commandClass, $update, $parameters)
+    protected function execute($command, $update, $parameters)
     {
         /** @var CallbackCommand $command */
-        $command = new $commandClass($this->telegram);
+        //$command = new $commandClass($this->telegram);
         $command->setUpdate($update)
             ->setParameters($parameters);
 
