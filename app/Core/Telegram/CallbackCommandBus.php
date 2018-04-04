@@ -78,7 +78,7 @@ class CallbackCommandBus
 
             if (isset($this->commands[$callbackCommandName])) {
                 $this->execute(
-                    $this->commands[$callbackCommandName],
+                    get_class($this->commands[$callbackCommandName]),
                     $update,
                     $params
                 );
@@ -86,10 +86,10 @@ class CallbackCommandBus
         }
     }
 
-    protected function execute($command, $update, $parameters)
+    protected function execute($commandClass, $update, $parameters)
     {
         /** @var CallbackCommand $command */
-        //$command = new $commandClass($this->telegram);
+        $command = app()->make($commandClass, [$this->telegram]);
         $command->setUpdate($update)
             ->setParameters($parameters);
 

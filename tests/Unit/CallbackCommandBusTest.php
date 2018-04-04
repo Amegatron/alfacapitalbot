@@ -26,6 +26,10 @@ class CallbackCommandBusTest extends TestCase
         $commandMock->shouldReceive("setParameters")->andReturnSelf();
         $commandMock->shouldReceive("handle");
 
+        $this->app->bind(get_class($commandMock), function ($app) use ($commandMock) {
+            return $commandMock;
+        });
+
         $bus = new CallbackCommandBus($telegramMock);
         $bus->addCommand($commandMock);
         $bus->handle("testcommand:test", $updateMock);
