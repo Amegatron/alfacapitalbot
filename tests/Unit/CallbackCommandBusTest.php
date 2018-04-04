@@ -23,7 +23,9 @@ class CallbackCommandBusTest extends TestCase
 
         $commandMock = \Mockery::mock(CallbackCommand::class, [$telegramMock])->makePartial();
         $commandMock->shouldReceive("getName")->andReturn("testcommand");
-        $commandMock->shouldReceive("setParameters")->andReturnSelf();
+        $commandMock->shouldReceive("setParameters")
+            ->with(["test"])
+            ->andReturnSelf();
         $commandMock->shouldReceive("handle");
 
         $this->app->bind(get_class($commandMock), function ($app) use ($commandMock) {
