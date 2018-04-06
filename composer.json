@@ -12,7 +12,8 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "mockery/mockery": "dev-master",
-        "php-vcr/php-vcr": "^1.4"
+        "php-vcr/php-vcr": "^1.4",
+        "php-mock/php-mock-phpunit": "dev-master"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

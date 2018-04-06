@@ -49,11 +49,12 @@ class ParseCourses extends Command
     {
         $hour = (int)date('H');
         if ($hour >= 0 && $hour <= 10) {
+            $this->info("Idle hour");
             return;
         }
 
         $opifs = Opif::all();
-        $parser = new HtmlCourseParser();
+        $parser = app()->make(HtmlCourseParser::class);
 
         foreach ($opifs as $opif) {
             $this->info($opif->fullName);
