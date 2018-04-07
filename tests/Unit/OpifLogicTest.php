@@ -137,7 +137,7 @@ class OpifLogicTest extends TestCase
         ]);
 
         OpifCourse::create([
-            'date' => '25.03.2018',
+            'date' => '2018-03-25',
             'opif_id' => $this->opif->id,
             'course' => $course,
         ]);
