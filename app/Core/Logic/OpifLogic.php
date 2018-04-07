@@ -13,6 +13,10 @@ class OpifLogic
             $opif = Opif::find($opif);
         }
 
+        if (is_null($opif)) {
+            throw new \Exception("OPIF not found");
+        }
+
         $existing = UserPifAmount::where('user_id', '=', $userId)
             ->where('opif_id', '=', $opif->id)
             ->first();
