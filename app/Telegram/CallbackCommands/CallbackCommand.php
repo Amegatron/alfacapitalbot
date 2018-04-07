@@ -58,7 +58,7 @@ abstract class CallbackCommand
 
     public function getCallbackData()
     {
-        $data = $this->name . ':' . implode(",", $this->getParameters());
+        $data = $this->getName() . ':' . implode(",", $this->getParameters());
 
         if (strlen($data) > 64) {
             throw new \InvalidArgumentException("Callback data is larger than 64 bytes");
