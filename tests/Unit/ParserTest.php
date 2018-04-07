@@ -31,16 +31,16 @@ class ParserTest extends TestCase
         VCR::eject();
         VCR::turnOff();
 
-        VCR::turnOn();
-        VCR::insertCassette('alfacapital.yml');
-
-        $opif = new Opif();
-        $opif->publicDataUrl = 'https://www.alfacapital.ru/disclosure/pifs/opif_aks/';
-        $result = $parser->parse($opif);
-        $this->assertCoursesResult($result);
-
-        VCR::eject();
-        VCR::turnOff();
+        // VCR::turnOn();
+        // VCR::insertCassette('alfacapital.yml');
+        //
+        // $opif = new Opif();
+        // $opif->publicDataUrl = 'https://www.alfacapital.ru/disclosure/pifs/opif_aks/';
+        // $result = $parser->parse($opif);
+        // $this->assertCoursesResult($result);
+        //
+        // VCR::eject();
+        // VCR::turnOff();
     }
 
     /** @test */
