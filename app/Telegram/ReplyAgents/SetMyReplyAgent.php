@@ -17,18 +17,19 @@ class SetMyReplyAgent extends AbstractReplyAgent
             return false;
         }
 
-        $text = $this->update->getMessage()->getText();
-        $userId = $this->update->getMessage()->getFrom()->getId();
+        $text = $this->getUpdate()->getMessage()->getText();
 
         if (!is_numeric($text)) {
             $this->replyWithMessage(['text' => "Неверный формат числа. Повторите попытку."]);
             return false;
         }
 
+        $userId = $this->getUpdate()->getMessage()->getFrom()->getId();
+
         $amount = (double)$text;
 
         try {
-            $message = (new OpifLogic)->setUserAmount($userId, $pifId, $amount);
+            $message = (app()->make(OpifLogic::class))->setUserAmount($userId, $pifId, $amount);
             $this->replyWithMessage(['text' => $message]);
             session()->forget([
                 self::SET_MY_PIF_ID,

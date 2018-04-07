@@ -2,7 +2,6 @@
 namespace App\Core\Telegram;
 
 use App\Telegram\ReplyAgents\AbstractReplyAgent;
-use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Update;
 
