@@ -44,9 +44,9 @@ class CallbackCommandBus
     {
         if ($command instanceof CallbackCommand) {
             return $command;
-        } else if (is_string($command) && class_exists($command)) {
+        } else if (is_string($command)) {
             try {
-                $command = new $command($this->telegram);
+                $command = app()->make($command, [$this->telegram]);
                 if ($command instanceof CallbackCommand) {
                     return $command;
                 }

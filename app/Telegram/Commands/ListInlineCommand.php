@@ -22,7 +22,7 @@ class ListInlineCommand extends Command
 
         $keyboard = Keyboard::make()->inline();
         foreach ($pifs as $pif) {
-            $command = new CourseCallbackCommand($this->getTelegram());
+            $command = app()->make(CourseCallbackCommand::class, [$this->getTelegram()]);
             $command->setPifId($pif->id);
             $button = Keyboard::inlineButton([
                 'text' => $pif->fullName,

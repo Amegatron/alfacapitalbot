@@ -60,4 +60,32 @@ class CallbackCommandBusTest extends TestCase
         $bus->removeCommands([$commandName]);
         $bus->handle("testcommand:test", $updateMock);
     }
+
+    /** @test */
+    public function a_bus_should_fail_adding_command_1()
+    {
+        $telegramMock = \Mockery::mock(Api::class);
+
+        // Could not instantiate command
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageRegExp("~^Could not instantiate command~");
+
+        $bus = new CallbackCommandBus($telegramMock);
+        $bus->addCommand("MyTestCommand");
+    }
+
+    /** @test */
+    public function a_bus_should_fail_adding_command_2()
+    {
+        $telegramMock = \Mockery::mock(Api::class);
+
+        $commandMock = \Mockery::mock('TestNotACommand');
+
+        // Not an instance of CallbackCommand
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageRegExp("~is not an instance of CallbackCommand~");
+
+        $bus = new CallbackCommandBus($telegramMock);
+        $bus->addCommand($commandMock);
+    }
 }
