@@ -22,11 +22,13 @@ class Opif extends Model
         'publicDataUrl',
     ];
 
-    public function courses() {
+    public function courses()
+    {
         return $this->hasMany('App\OpifCourse', 'opif_id', 'id');
     }
 
-    public function latestCourse() {
+    public function latestCourse()
+    {
         return $this->courses()->orderBy('date', 'desc')->first();
     }
 }

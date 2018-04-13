@@ -7,7 +7,6 @@ use App\UserPifAmount;
 
 class CourseCallbackCommand extends CallbackCommand
 {
-
     protected $name = 'course';
 
     protected $pifId;

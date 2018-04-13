@@ -35,7 +35,7 @@ class HtmlCourseParser implements CourseParserInterface
 
     protected function parseHtml($html)
     {
-        if (!preg_match('~<table class="table-pif-cost mtX1 mbX3">(.*?)</table>~is', $html,$matches)) {
+        if (!preg_match('~<table class="table-pif-cost mtX1 mbX3">(.*?)</table>~is', $html, $matches)) {
             return null;
         }
 

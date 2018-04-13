@@ -5,7 +5,6 @@ use Telegram\Bot\Commands\Command;
 
 class AboutCommand extends Command
 {
-
     protected $name = 'about';
 
     protected $description = 'Информация о боте';

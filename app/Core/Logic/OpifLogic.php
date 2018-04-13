@@ -47,7 +47,7 @@ class OpifLogic
         $message = "Кол-во паев для ПИФа \"{$opif->fullName}\" ";
         if ($action == 'update') {
             $message .= "обновлено до значения ";
-        } else if ($action == 'insert') {
+        } elseif ($action == 'insert') {
             $message .= "установлено в ";
         }
         $message .= $amount;

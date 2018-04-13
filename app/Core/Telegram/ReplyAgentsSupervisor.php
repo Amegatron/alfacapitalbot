@@ -53,7 +53,7 @@ class ReplyAgentsSupervisor
     {
         if ($agent instanceof AbstractReplyAgent) {
             return $agent;
-        } else if (is_string($agent) && class_exists($agent)) {
+        } elseif (is_string($agent) && class_exists($agent)) {
             $agentObj = new $agent($this->telegram);
             if ($agentObj instanceof AbstractReplyAgent) {
                 return $agentObj;

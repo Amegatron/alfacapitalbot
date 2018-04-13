@@ -81,8 +81,7 @@ abstract class CallbackCommand
             throw new \BadMethodCallException("Method [$method] does not exist.");
         }
 
-        if (null === $this->update->getCallbackQuery() || null === $chat = $this->update->getCallbackQuery()->getMessage()->getChat())
-        {
+        if (null === $this->update->getCallbackQuery() || null === $chat = $this->update->getCallbackQuery()->getMessage()->getChat()) {
             throw new \BadMethodCallException("No chat available for reply with [$method].");
         }
 

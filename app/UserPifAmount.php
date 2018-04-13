@@ -14,7 +14,8 @@ class UserPifAmount extends Model
         'amount'
     ];
 
-    public function opif() {
+    public function opif()
+    {
         return $this->belongsTo(Opif::class, 'opif_id', 'id');
     }
 }

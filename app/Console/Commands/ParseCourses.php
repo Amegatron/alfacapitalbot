@@ -97,7 +97,8 @@ class ParseCourses extends Command
         $this->cache->forever(self::LAST_PARSE_TIME, time());
     }
 
-    protected function prepareCourse($course) {
+    protected function prepareCourse($course)
+    {
         return (double)preg_replace('~[^0-9.]~', '', $course);
     }
 }

@@ -31,7 +31,7 @@ class StartTelegramSession extends StartSession
         if ($update instanceof Update) {
             if ($update->getMessage()) {
                 $sessionName = $update->getMessage()->getFrom()->getId();
-            } else if ($update->getCallbackQuery()) {
+            } elseif ($update->getCallbackQuery()) {
                 $sessionName = $update->getCallbackQuery()->getFrom()->getId();
             }
         }

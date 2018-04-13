@@ -44,7 +44,7 @@ class CallbackCommandBus
     {
         if ($command instanceof CallbackCommand) {
             return $command;
-        } else if (is_string($command)) {
+        } elseif (is_string($command)) {
             try {
                 $command = app()->make($command, [$this->telegram]);
                 if ($command instanceof CallbackCommand) {
@@ -58,7 +58,8 @@ class CallbackCommandBus
         throw new \Exception("Command {$command} is not an instance of CallbackCommand");
     }
 
-    public function removeCommand($name) {
+    public function removeCommand($name)
+    {
         unset($this->commands[$name]);
     }
 

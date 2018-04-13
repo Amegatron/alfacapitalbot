@@ -52,7 +52,7 @@ class SetMyCallbackCommand extends CallbackCommand
                 'text' => 'Выберите ПИФ:',
                 'reply_markup' => $keyboard,
             ]);
-        } else if ($this->inputPif > 0) {
+        } elseif ($this->inputPif > 0) {
             /** @var Opif $opif */
             $opif = Opif::find($this->inputPif);
 
@@ -79,7 +79,7 @@ class SetMyCallbackCommand extends CallbackCommand
                 'text' => 'Пришлите мне сообщением Ваше кол-во паев в выбранном ПИФе ("' . $opif->name . '"):',
                 'reply_markup' => $keyboard,
             ]);
-        } else if ($this->inputPif == -1) {
+        } elseif ($this->inputPif == -1) {
             session()->forget([
                 ReplyAgentsSupervisor::FORCE_AGENT,
                 SetMyReplyAgent::SET_MY_PIF_ID,
