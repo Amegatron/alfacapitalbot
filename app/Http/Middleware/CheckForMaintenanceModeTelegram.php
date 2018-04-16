@@ -39,6 +39,7 @@ class CheckForMaintenanceModeTelegram
      * @return mixed
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     * @throws \Telegram\Bot\Exceptions\TelegramSDKException
      */
     public function handle($request, Closure $next)
     {
@@ -49,7 +50,7 @@ class CheckForMaintenanceModeTelegram
                 'chat_id' => $update->getChat()->getId(),
             ]);
 
-            return;
+            return response("Maintenance mode", 200);
         }
 
         return $next($request);
