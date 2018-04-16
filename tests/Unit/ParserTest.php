@@ -44,16 +44,16 @@ class ParserTest extends TestCase
     }
 
     /** @test */
-    function a_parser_should_throw_exception_for_invalid_url()
+    function a_parser_should_return_null_for_invalid_url()
     {
         /** @var HtmlCourseParser $parser */
         $parser = $this->app->make(HtmlCourseParser::class);
         $opif = new Opif();
         $opif->publicDataUrl = 'http://asdfasd34534fasdf.com/asdfasdf';
 
-        $this->expectException(\Exception::class);
-
         $result = $parser->parse($opif);
+
+        $this->assertNull($result);
     }
 
     /** @test */

@@ -10,6 +10,19 @@ class HtmlCourseParser implements CourseParserInterface
     {
         $url = $opif->publicDataUrl;
 
+        try {
+            $result = $this->fetchHtml($url);
+        } catch (\Exception $e) {
+            $result = "";
+        }
+
+        $parseResult = $this->parseHtml($result);
+
+        return $parseResult;
+    }
+
+    protected function fetchHtml($url)
+    {
         $ch = curl_init($url);
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
@@ -28,9 +41,7 @@ class HtmlCourseParser implements CourseParserInterface
             throw new \Exception('Error from cURL [' . $errno . ']: ' . $error);
         }
 
-        $parseResult = $this->parseHtml($result);
-
-        return $parseResult;
+        return $result;
     }
 
     protected function parseHtml($html)
